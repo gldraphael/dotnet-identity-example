@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Web.Models;
 
 namespace Web
 {
@@ -26,6 +28,18 @@ namespace Web
         {
             services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseMySQL(Configuration.GetConnectionString("database")), ServiceLifetime.Scoped);
+
+            // Configure Identity
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddMvc();
         }
