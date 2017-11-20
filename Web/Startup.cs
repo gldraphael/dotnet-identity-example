@@ -30,7 +30,7 @@ namespace Web
 				options.UseMySQL(Configuration.GetConnectionString("database")), ServiceLifetime.Scoped);
 
             // Configure Identity
-            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
