@@ -64,6 +64,8 @@ namespace Web.Controllers
 
                 // Assign all roles to the default user
                 result = await _userManager.AddToRolesAsync(user, roles.Select(r => r.GetRoleName()));
+                // If you add a role to the enumafter the user is created,
+                // the role will not be assigned to the user as of now
 
                 if(!result.Succeeded) // Return 500 if it fails
                     return StatusCode(StatusCodes.Status500InternalServerError);
