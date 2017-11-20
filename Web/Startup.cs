@@ -27,7 +27,7 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseMySQL(Configuration.GetConnectionString("database")), ServiceLifetime.Scoped);
+				options.UseMySql(Configuration.GetConnectionString("database")), ServiceLifetime.Scoped);
 
             // Configure Identity
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
