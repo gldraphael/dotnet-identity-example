@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
@@ -36,11 +37,11 @@ namespace Web.Controllers
 
 			if (result.RequiresTwoFactor)
 			{
-				return StatusCode(501);
+				return StatusCode(StatusCodes.Status501NotImplemented);
 			}
 			if (result.IsLockedOut)
 			{
-				return StatusCode(423);
+				return StatusCode(StatusCodes.Status423Locked);
 			}
 			if (result.Succeeded)
 			{
