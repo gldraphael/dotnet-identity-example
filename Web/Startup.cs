@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +45,24 @@ namespace Web
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            // Configure the Application Cookie
+            services.ConfigureApplicationCookie(c => {
+                // Override the default events
+                c.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
+                    OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
+                };
+                
+                // Customize other stuff as needed
+                c.Cookie.Name = ".applicationname";
+                c.Cookie.HttpOnly = true; // This must be true to prevent XSS
+                c.Cookie.SameSite = SameSiteMode.None;
+                c.Cookie.SecurePolicy = CookieSecurePolicy.None; // Should ideally be "Always"
+                
+                c.SlidingExpiration = true;
+            });
+
             services.AddMvc();
         }
 
@@ -55,5 +77,12 @@ namespace Web
             app.UseAuthentication();
             app.UseMvc();
         }
+
+        private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(HttpStatusCode statusCode) => context =>
+        {
+            // Adapted from https://stackoverflow.com/questions/42030137/suppress-redirect-on-api-urls-in-asp-net-core
+            context.Response.StatusCode = (int) statusCode;
+            return Task.CompletedTask;
+        };
     }
 }
