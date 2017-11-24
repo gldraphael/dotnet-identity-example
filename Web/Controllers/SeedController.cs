@@ -12,8 +12,8 @@ namespace Web.Controllers
     public class SeedController : Controller
     {
 
-        private UserManager<ApplicationUser> _userManager;
-        private RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public SeedController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
