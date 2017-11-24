@@ -21,7 +21,7 @@ namespace Web.Controllers
             _roleManager = roleManager;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Index()
         {
             // Get the list of the roles in the enum
