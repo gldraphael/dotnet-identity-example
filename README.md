@@ -24,6 +24,8 @@ This project complements my blog post: <>
 
 #### Commandline
 
+_You'll need an `ASPNETCORE_ENVIRONMENT` environment variable set to `Development`, for this to work._
+
 ```bash
 cd Web
 dotnet run
