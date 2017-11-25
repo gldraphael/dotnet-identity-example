@@ -1,6 +1,6 @@
 # ASP.NET Core Identity Example
 
-This project complements my blog post: <>
+This project complements my blog post: <https://gldraphael.com/blog/getting-started-with-identity-in-asp-net-core/>
 
 ## Setting up your dev environment and this project solution
 
