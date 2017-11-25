@@ -10,7 +10,7 @@ This project complements my blog post: <>
 * Open up the solution (directory) in  VS / your text editor
 * Rename `Web/appsettings.Development.example.json` to `appsettings.Development.json`
 * Update the `ConnectionStrings` with the correct parameters. (If you're not using MySql replace it with an appropriate connection string.)
-* That's it.
+* If you don't use MySql, you'll need to regenerate the Migrations folder.
 
 ## Run the project
 
