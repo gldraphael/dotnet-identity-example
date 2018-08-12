@@ -11,6 +11,7 @@ This project complements my blog post: <https://gldraphael.com/blog/getting-star
 * Rename `Web/appsettings.Development.example.json` to `appsettings.Development.json`
 * Update the `ConnectionStrings` with the correct parameters. (If you're not using MySql replace it with an appropriate connection string.)
 * If you don't use MySql, you'll need to regenerate the Migrations folder.
+* Run the migrations using `dotnet ef database update` (from the Web project directory).
 
 ## Run the project
 
